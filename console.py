@@ -25,6 +25,10 @@ class HBNBCommand(cmd.Cmd):
         print("^D")
         return True
 
+    def emptyline(self):
+        """Do nothing on empty line"""
+        pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
