@@ -2,6 +2,7 @@
 """serializes instances to a JSON file and deserializes JSON file to instances"""
 import json
 from os.path import exists
+from models.user import User
 
 
 
@@ -35,7 +36,9 @@ class FileStorage:
                     serialized_objects = json.load(f)
                     for key, value in serialized_objects.items():
                         class_name, obj_id = key.split('.')
-                        if class_name in globals():
+                        if class_name == 'User':
+                            self.__objects[key] = User(**value)
+                        elif class_name in globals():
                             self.__objects[key] = globals()[class_name](**value)
             except (json.decoder.JSONDecodeError, ValueError):
                 print('Errrr')
