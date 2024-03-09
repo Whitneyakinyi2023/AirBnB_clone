@@ -10,10 +10,6 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    def __init__(self, BaseModelClass=None):
-        """initialization"""
-        self.BaseModelClass = BaseModelClass
-
     def all(self):
         """returns __objects"""
         return self.__objects
@@ -39,7 +35,7 @@ class FileStorage:
                     serialized_objects = json.load(f)
                     for key, value in serialized_objects.items():
                         class_name, obj_id = key.split('.')
-                        if self.BaseModelClass:
-                            self.__objects[key] = self.BaseModelClass(**value)
-            except json.decoder.JSONDecodeError:
+                        if class_name in globals():
+                            self.__objects[key] = globals()[class_name](**value)
+            except (json.decoder.JSONDecodeError, ValueError):
                 print('Errrr')
