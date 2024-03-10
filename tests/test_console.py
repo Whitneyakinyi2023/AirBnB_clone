@@ -165,3 +165,6 @@ class Test_Console(unittest.TestCase):
             HBNBComand().onecmd("update BaseModel existing-id")
             output = f.getvalue().strip()
             self.assertEqual(output, '** value missing **')
+
+if __name__ == '__main__':
+    unittest.main()
