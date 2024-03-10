@@ -5,6 +5,7 @@ import cmd
 from models.base_model import BaseModel
 from models import storage
 
+
 # Constants
 PROMPT = '(hbnb) '
 ERROR_CLASS_MISSING = '** class name missing **'
@@ -12,6 +13,7 @@ ERROR_INSTANCE_ID_MISSING = '** instance id missing **'
 ERROR_VALUE_MISSING = '** value missing **'
 ERROR_CLASS_DOESNT_EXIST = '** class doesn\'t exist **'
 ERROR_INSTANCE_NOT_FOUND = '** no instance found **'
+
 
 
 class HBNBCommand(cmd.Cmd):
@@ -90,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, args):
-        """Prints string representation of all instances"""
+        """prints all string representation of all instances"""
         arg_list = args.split()
         if not arg_list:
             obj_list = [str(obj) for obj in storage.all().values()]
@@ -118,7 +120,6 @@ class HBNBCommand(cmd.Cmd):
         if obj:
             setattr(obj, attr_name, attr_value)
             obj.save()
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
