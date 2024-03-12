@@ -3,6 +3,9 @@
 from models.base_model import BaseModel
 
 
-class Amenities(BaseModel):
+class Amenity(BaseModel):
     """Class representation of amenities"""
-    name = ""
+    def __init__(self, *args, **kwargs):
+        """initialization"""
+        super().__init__(*args, **kwargs)
+        self.name = ""
