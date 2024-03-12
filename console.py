@@ -4,6 +4,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+import os
 
 
 # Constants
@@ -13,7 +14,7 @@ ERROR_INSTANCE_ID_MISSING = '** instance id missing **'
 ERROR_VALUE_MISSING = '** value missing **'
 ERROR_CLASS_DOESNT_EXIST = '** class doesn\'t exist **'
 ERROR_INSTANCE_NOT_FOUND = '** no instance found **'
-
+FILE_PATH = 'file.json'
 
 
 class HBNBCommand(cmd.Cmd):
@@ -95,15 +96,20 @@ class HBNBCommand(cmd.Cmd):
         """prints all string representation of all instances"""
         arg_list = args.split()
         if not arg_list:
-            obj_list = [str(obj) for obj in storage.all().values()]
-            print(obj_list)
+            print(ERROR_CLASS_MISSING)
             return
         class_name = arg_list[0]
         if class_name not in globals():
             print(ERROR_CLASS_DOESNT_EXIST)
             return
-        obj_list = [str(obj) for key, obj in storage.all().items() if class_name in key]
-        print(obj_list)
+        
+        class_instance = globals()[class_name]
+        if hasattr(class_instance, 'all') and callable(getattr(class_instance, 'all')):
+            instances = class_instance.all()
+            for instance in instances:
+                print(instance)
+        else:
+            print("Can't do it bruv")
 
     def do_update(self, args):
         """Updates instance based on class name and ID"""
@@ -121,5 +127,21 @@ class HBNBCommand(cmd.Cmd):
             setattr(obj, attr_name, attr_value)
             obj.save()
 
+    def do_count(self, arg):
+        """retrieves number of instances of a class"""
+        arg_list = args.split()
+        if not arg_list:
+            print('** class missing **')
+            return
+        classes = arg_list[0]
+        if classes not in globals() or not hasattr(models, classes):
+            print('** class doesn\'t exist **')
+            return
+        count = storage.count(classes)
+        print(count)
+
 if __name__ == '__main__':
+    if not os.path.exists(FILE_PATH):
+        with open(FILE_PATH, 'w') as f:
+            f.write('{}')
     HBNBCommand().cmdloop()
