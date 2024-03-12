@@ -53,7 +53,8 @@ class HBNBCommand(cmd.Cmd):
         return storage.all()[obj_key]
 
     def do_create(self, args):
-        """Creates new instance of BaseModel, saves it to JSON file, and prints the ID"""
+        """Creates new instance of BaseModel,
+        saves it to JSON file, and prints the ID"""
         class_name = args.split()[0]
         new_instance = self._create_instance(class_name)
         if new_instance:
@@ -100,7 +101,10 @@ class HBNBCommand(cmd.Cmd):
         if class_name not in globals():
             print(ERROR_CLASS_DOESNT_EXIST)
             return
-        obj_list = [str(obj) for key, obj in storage.all().items() if class_name in key]
+        obj_list = [
+                str(obj) for key,
+                obj in storage.all().items() if class_name in key
+                ]
         print(obj_list)
 
     def do_update(self, args):
@@ -111,7 +115,9 @@ class HBNBCommand(cmd.Cmd):
             return
         class_name, obj_id, *attr = arg_list
         if len(attr) < 2:
-            print(ERROR_INSTANCE_ID_MISSING if len(attr) == 0 else ERROR_VALUE_MISSING)
+            print(
+                    ERROR_INSTANCE_ID_MISSING if len(attr)
+                    == 0 else ERROR_VALUE_MISSING)
             return
         attr_name, attr_value = attr[0], " ".join(attr[1:])
         obj = self._get_instance_by_id(class_name, obj_id)
