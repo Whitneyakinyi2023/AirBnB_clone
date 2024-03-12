@@ -4,6 +4,7 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 import unittest
 
+
 class TestAmenity(unittest.TestCase):
     """test for the amenity class"""
     def test_create_name(self):
@@ -13,6 +14,7 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(amenity, BaseModel)
         self.assertTrue(hasattr(amenity, "name"))
         self.assertEqual(amenity.name, "")
+
 
 if __name__ == "__main__":
     unittest.main()

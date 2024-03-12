@@ -5,6 +5,7 @@ from models.user import User
 from models.base_model import BaseModel
 import unittest
 
+
 class test_user(unittest.TestCase):
     """test for user class"""
     def test_create(self):
@@ -20,6 +21,7 @@ class test_user(unittest.TestCase):
         self.assertIsInstance(user.first_name, str)
         self.assertEqual(user.last_name, "")
         self.assertIsInstance(user.last_name, str)
+
 
 if __name__ == "__main__":
     unittest.main()

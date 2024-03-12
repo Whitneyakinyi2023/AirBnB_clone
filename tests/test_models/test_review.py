@@ -4,6 +4,7 @@ from models.review import Review
 from models.base_model import BaseModel
 import unittest
 
+
 class test_Review(unittest.TestCase):
     """test for the review class"""
     def test_create(self):
@@ -17,6 +18,7 @@ class test_Review(unittest.TestCase):
         self.assertIsInstance(review. user_id, str)
         self.assertEqual(review.text, "")
         self.assertIsInstance(review.text, str)
+
 
 if __name__ == "__main__":
     unittest.main()
