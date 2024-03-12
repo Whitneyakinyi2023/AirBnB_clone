@@ -6,8 +6,10 @@ import json
 from os.path import exists
 from models.user import User
 
+
 class FileStorage:
-    """Serializes instances to a JSON file and deserializes JSON file to instances"""
+    """Serializes instances to a JSON file
+    and deserializes JSON file to instances"""
     __file_path = 'file.json'
     __objects = {}
 
@@ -39,6 +41,7 @@ class FileStorage:
                         if class_name == 'User':
                             self.__objects[key] = User(**value)
                         elif class_name in globals():
-                            self.__objects[key] = globals()[class_name](**value)
+                            self.__objects[key] = globals()[
+                                    class_name](**value)
             except (json.decoder.JSONDecodeError, ValueError):
                 print('Error decoding JSON file')
