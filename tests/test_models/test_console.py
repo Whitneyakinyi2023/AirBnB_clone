@@ -30,7 +30,7 @@ class Test_Console(unittest.TestCase):
             HBNBCommand().onecmd("create someclass")
             output = f.getvalue().strip()
             self.assertTrue(len(output) > 0)
-            
+
     def test_show(self):
         """Testing the show command.
         Prints BaseModel with its details if present."""
@@ -38,7 +38,7 @@ class Test_Console(unittest.TestCase):
 
     def test_show_instanceid_missing(self):
         """Testing the show command.
-        Prints '** instance id missing **' 
+        Prints '** instance id missing **'
         if id isn't present in command."""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("show BaseModel <id>")
@@ -86,7 +86,7 @@ class Test_Console(unittest.TestCase):
             output = f.getvalue().strip()
             print("Output:", repr(output))
             self.assertEqual(output, "** missing arguments **")
-            
+
     def test_destroy_missinginstance(self):
         """Testing the destroy command.
         Returns error statement if instance id is missing"""
@@ -120,7 +120,7 @@ class Test_Console(unittest.TestCase):
 
     def test_update(self):
         """Testing the update command.
-        Updates an instance based on class name and id 
+        Updates an instance based on class name and id
         by adding or updating attributes"""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update")
@@ -161,11 +161,13 @@ class Test_Console(unittest.TestCase):
 
     def test_update_value(self):
         """Testing the update command.
-        Returns error statement if value for the attribute name doesn't exist"""
+        Returns error statement
+        if value for the attribute name doesn't exist"""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update BaseModel existing-id")
             output = f.getvalue().strip()
             self.assertEqual(output, '** instance id missing **')
+
 
 if __name__ == '__main__':
     unittest.main()
