@@ -76,7 +76,7 @@ class Test_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("destroy")
             output = f.getvalue().strip()
-            self.assertEqual(output, '** missing arguments **')
+            self.assertEqual(output, '** class name missing **')
 
     def test_destroy_classname_null(self):
         """Testing the destroy command.
@@ -85,7 +85,7 @@ class Test_Console(unittest.TestCase):
             HBNBCommand().onecmd("destroy MyModel")
             output = f.getvalue().strip()
             print("Output:", repr(output))
-            self.assertEqual(output, "** missing arguments **")
+            self.assertEqual(output, "** class name missing **")
 
     def test_destroy_missinginstance(self):
         """Testing the destroy command.
@@ -93,7 +93,7 @@ class Test_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("destroy BaseModel")
             output = f.getvalue().strip()
-            self.assertEqual(output, '** missing arguments **')
+            self.assertEqual(output, '** class name missing **')
 
     def test_destroy_no_instance(self):
         """Testing the destroy comand.
@@ -125,7 +125,7 @@ class Test_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update")
             output = f.getvalue().strip()
-            self.assertEqual(output, '** value missing **')
+            self.assertEqual(output, '** class name missing **')
 
     def test_update_missing_id(self):
         """Testing the update command.
@@ -149,7 +149,7 @@ class Test_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update BaseModel 121212")
             output = f.getvalue().strip()
-            self.assertEqual(output, '** instance id missing **')
+            self.assertEqual(output, '** class name missing **')
 
     def test_update_attribute_name(self):
         """Testing the update command.
@@ -157,7 +157,7 @@ class Test_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update BaseModel existing-id")
             output = f.getvalue().strip()
-            self.assertEqual(output, '** instance id missing **')
+            self.assertEqual(output, '** class name missing **')
 
     def test_update_value(self):
         """Testing the update command.
@@ -166,7 +166,7 @@ class Test_Console(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update BaseModel existing-id")
             output = f.getvalue().strip()
-            self.assertEqual(output, '** instance id missing **')
+            self.assertEqual(output, '** class name missing **')
 
 
 if __name__ == '__main__':

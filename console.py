@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, args):
         """Deletes an instance based on the class name and ID"""
         arg_list = args.split()
-        if len(arg_list) < 1:
+        if len(arg_list) < 2:
             print(ERROR_CLASS_MISSING)
             return
         class_name, obj_id = arg_list[0], arg_list[1]
@@ -110,15 +110,15 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, args):
         """Updates instance based on class name and ID"""
         arg_list = args.split()
-        if len(arg_list) < 1:
+        if len(arg_list) < 3:
             print(ERROR_CLASS_MISSING)
             return
+
         class_name, obj_id, *attr = arg_list
         if len(attr) < 2:
-            print(
-                    ERROR_INSTANCE_ID_MISSING if len(attr)
-                    == 0 else ERROR_VALUE_MISSING)
+            print(ERROR_VALUE_MISSING)
             return
+        
         attr_name, attr_value = attr[0], " ".join(attr[1:])
         obj = self._get_instance_by_id(class_name, obj_id)
         if obj:
