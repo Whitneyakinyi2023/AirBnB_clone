@@ -5,36 +5,40 @@
 import json
 from os.path import exists
 from models.user import User
-from models.base_model import BaseModel
 
 class FileStorage:
-    """Serializes instances to a JSON file and deserializes JSON file to instances."""
-
-    __file_path = "file.json"
+    """Serializes instances to a JSON file and deserializes JSON file to instances"""
+    __file_path = 'file.json'
     __objects = {}
 
     def all(self):
-        """Returns the dictionary __objects."""
-        return FileStorage.__objects
+        """Returns __objects"""
+        return self.__objects
 
     def new(self, obj):
-        """Sets in __objects the obj with key <obj class name>.id."""
+        """Stores objects with key <class name>.id"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj
+        self.__objects[key] = obj
 
     def save(self):
-        """Serializes __objects to the JSON file."""
-        obj_dict = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
-        with open(FileStorage.__file_path, "w") as file:
-            json.dump(obj_dict, file)
+        """Serializes __objects to the JSON file"""
+        serialized_objects = {}
+        for key, obj in self.__objects.items():
+            serialized_objects[key] = obj.to_dict()
+        with open(self.__file_path, 'w') as f:
+            json.dump(serialized_objects, f)
 
     def reload(self):
-        """Deserializes the JSON file to __objects."""
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r") as file:
-                obj_dict = json.load(file)
-                for key, value in obj_dict.items():
-                    class_name, obj_id = key.split('.')
-                    obj = eval(class_name)(**value)
-                    FileStorage.__objects[key] = obj
-
+        """Deserializes the JSON file to __objects"""
+        if exists(self.__file_path):
+            try:
+                with open(self.__file_path, 'r') as f:
+                    serialized_objects = json.load(f)
+                    for key, value in serialized_objects.items():
+                        class_name, obj_id = key.split('.')
+                        if class_name == 'User':
+                            self.__objects[key] = User(**value)
+                        elif class_name in globals():
+                            self.__objects[key] = globals()[class_name](**value)
+            except (json.decoder.JSONDecodeError, ValueError):
+                print('Error decoding JSON file')
