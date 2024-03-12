@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         if len(attr) < 2:
             print(ERROR_VALUE_MISSING)
             return
-        
+
         attr_name, attr_value = attr[0], " ".join(attr[1:])
         obj = self._get_instance_by_id(class_name, obj_id)
         if obj:
