@@ -10,7 +10,3 @@ footer {
     bottom: 0;
     left: 0;
 }
-
-footer::after {
-	content: "Best School";
-}
