@@ -1,0 +1,17 @@
+body, header, footer {
+	maring: 0;
+	padding: 0;
+}
+
+body {
+	color: #484848;
+	font-size: 14px;
+	font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.container {
+	maring: auto;
+	max-width: 1000px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
